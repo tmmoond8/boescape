@@ -1,53 +1,47 @@
-import * as React from 'react';
-import {browser, Tabs} from 'webextension-polyfill-ts';
+import * as React from "react";
+// import { browser, Tabs } from "webextension-polyfill-ts";
 
-import './styles.scss';
+import "./styles.scss";
 
-function openWebPage(url: string): Promise<Tabs.Tab> {
-  return browser.tabs.create({url});
-}
+// function openWebPage(url: string): Promise<Tabs.Tab> {
+//   return browser.tabs.create({ url });
+// }
 
 const Popup: React.FC = () => {
+  const [log, setLog] = React.useState("");
+  const handleClick = (): void => {
+    const chrome = (globalThis as any).chrome;
+    if (!chrome) {
+      setLog("return");
+      return;
+    }
+    setLog("gogo");
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
+      chrome.tabs.executeScript(tabs[0].id, {
+        code: `
+          document.body.style.backgroundColor = "red"
+        `,
+      });
+    });
+  };
+
   return (
     <section id="popup">
-      <h2>WEB-EXTENSION-STARTER</h2>
-      <button
-        id="options__button"
-        type="button"
-        onClick={(): Promise<Tabs.Tab> => {
-          return openWebPage('options.html');
-        }}
-      >
-        Options Page
-      </button>
-      <div className="links__holder">
-        <ul>
-          <li>
-            <button
-              type="button"
-              onClick={(): Promise<Tabs.Tab> => {
-                return openWebPage(
-                  'https://github.com/abhijithvijayan/web-extension-starter'
-                );
-              }}
-            >
-              GitHub
-            </button>
-          </li>
-          <li>
-            <button
-              type="button"
-              onClick={(): Promise<Tabs.Tab> => {
-                return openWebPage(
-                  'https://www.buymeacoffee.com/abhijithvijayan'
-                );
-              }}
-            >
-              Buy Me A Coffee
-            </button>
-          </li>
-        </ul>
-      </div>
+      <h2>이스케이프 문자 </h2>
+      <label htmlFor="escape-activation">
+        <input
+          id="escape-activation"
+          type="checkbox"
+          onChange={(e) => {
+            handleClick();
+            // if (e.target.checked) {
+            // }
+            console.log("e", e.target.checked);
+          }}
+        />
+        활성화2
+        <p>{log}</p>
+      </label>
     </section>
   );
 };

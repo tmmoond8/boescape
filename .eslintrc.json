@@ -1,34 +1,52 @@
 {
-	"extends": [
-		"@abhijithvijayan/eslint-config/typescript",
-		"@abhijithvijayan/eslint-config/node",
-		"@abhijithvijayan/eslint-config/react"
-	],
-	"parserOptions": {
-		"project": [
-			"./tsconfig.json"
-		],
-		"sourceType": "module"
-	},
-	"rules": {
-		"no-console": "off",
-		"no-extend-native": "off",
-		"react/jsx-props-no-spreading": "off",
-		"jsx-a11y/label-has-associated-control": "off",
-		"class-methods-use-this": "off",
-		"max-classes-per-file": "off",
-		"node/no-missing-import": "off",
-		"node/no-unpublished-import": "off",
-		"node/no-unsupported-features/es-syntax": ["error", {
-			"ignores": ["modules"]
-		}]
-	},
-	"env": {
-		"webextensions": true
-	},
-	"settings": {
-		"node": {
-			"tryExtensions": [".tsx"] // append tsx to the list as well
-		}
-	}
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended", // 기본 eslint
+    "plugin:react/recommended", // react eslint
+    "plugin:@typescript-eslint/recommended", // typescript eslint
+    "plugin:prettier/recommended", // prettier 사용하기 위해
+    "eslint-config-prettier",
+    "next/core-web-vitals"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "rules": {
+    "linebreak-style": 0,
+    "import/prefer-default-export": 0,
+    "import/extensions": 0,
+    "no-use-before-define": 0,
+    "import/no-unresolved": 0,
+    "react/react-in-jsx-scope": 0,
+    "import/no-extraneous-dependencies": 0,
+    "no-shadow": 0,
+    "no-debugger": 0,
+    "react/prop-types": 0,
+    "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "prettier/prettier": 0,
+    "@typescript-eslint/no-empty-function": "off",
+    "no-extra-boolean-cast": "off",
+    "@typescript-eslint/ban-types": "off",
+    "prefer-const": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  }
 }
